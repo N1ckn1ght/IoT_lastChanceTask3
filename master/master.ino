@@ -8,7 +8,7 @@ int connected_pins_size = sizeof(connected_pins) / sizeof(connected_pins[0]);
 
 void setup()
 {
-  Serial.begin(9600);
+  Serial.begin(19200);
   while (!Serial) {}
   Serial.println("Check!");
   mySerial.begin(4800);
