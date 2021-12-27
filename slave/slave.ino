@@ -8,7 +8,7 @@ int connected_pins_size = sizeof(connected_pins) / sizeof(connected_pins[0]);
 
 void setup()
 {
-  Serial.begin(9600);
+  Serial.begin(19200);
   while (!Serial) {}
   Serial.println("Check!");
   mySerial.begin(4800);
@@ -19,7 +19,7 @@ void loop()
   String data = "";
   for (int i = 0; i < connected_pins_size; i++)
   {
-    data += (String)connected_pins[i] + " ";
+    data += ((String)analogRead(connected_pins[i]) + " ");
   }
   data += "\n";
   Serial.println("debug:\n" + data);
