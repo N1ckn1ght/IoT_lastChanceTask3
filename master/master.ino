@@ -19,6 +19,7 @@ void loop()
   if (mySerial.available())
   {
     String sdata = "";
+    int current_byte = 0;
     
     Serial.println("Master photoresistors:");
     for (int i = 0; i < connected_pins_size; i++)
@@ -27,9 +28,25 @@ void loop()
     }
     
     Serial.println("\nSlave photoresistors:");
-    while(mySerial.available())
+    while (true)
     {
-      sdata += (char)mySerial.read();
+      while (mySerial.available())
+      {
+        sdata += (char)mySerial.read();
+        if (sdata[current_byte] == '\n')
+        {
+          break;
+        }
+        current_byte++;
+      }
+      if (sdata[current_byte] != '\n')
+      {
+        delay(10);
+      }
+      else
+      {
+        break; 
+      }
     }
     Serial.println(sdata);
   }
@@ -40,7 +57,7 @@ void loop()
     {
       Serial.print((String)analogRead(connected_pins[i]) + " ");
     }
-    Serial.println("\nSlave didn't provide any data.\n");
+    Serial.println("\nSlave didn't provide any data yet.\n");
   }
   delay(1000);
 }
